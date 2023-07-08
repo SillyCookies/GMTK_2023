@@ -7,12 +7,17 @@ scene = {draw = function()
 	end}
 end
 
+function love.keypressed()
+scene.line_number = scene.line_number + 1
+
+end
 
 function love.update(dt)
 end
 
 function love.draw()
 scene.draw()
+
 end
 
 function draw_button(button)
@@ -50,19 +55,24 @@ introduction = {"This is a story of two people meeting, and how their relationsh
 cafe_intro = {draw = function()
 			yoffset= 0
 			for i , line in ipairs(cafe_intro) do
-				
+				if i > cafe_intro.line_number then	
+					break
+				end			
 				line_text = love.graphics.newText(font, line)
 				love.graphics.draw(line_text, 0, yoffset)
 			yoffset = yoffset + line_text:getHeight() 
+			
 			end
 			end,
 			
 			"SAM sits in a cafe, at the window, watching people walk by.",
 			"SAM sips the coffee as ALEX walks in. The coffee is terrible",
 			"ALEX: Sam?", 
-			"SAM: Alex, Hi!", 
+			"SAM: Alex, Hi!",  	
 			"ALEX sits down.",
-			"ALEX: It’s great to finally meet you!"
+			"ALEX: It’s great to finally meet you!",
+			
+			line_number = 1,
 
 }
 
