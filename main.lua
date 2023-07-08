@@ -1,3 +1,5 @@
+scenes = require("scenes")
+
 function love.load()
 font = love.graphics.newFont(18)
 mybutton = {x = 200, y = 200, width = 80, height = 40, text = love.graphics.newText(font, "Begin")}
@@ -52,28 +54,22 @@ end
 
 introduction = {"This is a story of two people meeting, and how their relationship develops. You control the music driving their story."}
 
-cafe_intro = {draw = function()
-			yoffset= 0
-			for i , line in ipairs(cafe_intro) do
-				if i > cafe_intro.line_number then	
-					break
-				end			
-				line_text = love.graphics.newText(font, line)
-				love.graphics.draw(line_text, 0, yoffset)
-			yoffset = yoffset + line_text:getHeight() 
-			
-			end
-			end,
-			
-			"SAM sits in a cafe, at the window, watching people walk by.",
-			"SAM sips the coffee as ALEX walks in. The coffee is terrible",
-			"ALEX: Sam?", 
-			"SAM: Alex, Hi!",  	
-			"ALEX sits down.",
-			"ALEX: It’s great to finally meet you!",
-			
-			line_number = 1,
+cafe_intro = scenes.Cafe
 
-}
+cafe_intro.draw = function()
+   yoffset= 0
+   for i , line in ipairs(cafe_intro) do
+      if i > cafe_intro.line_number then	
+	 break
+      end			
+      line_text = love.graphics.newText(font, line)
+      love.graphics.draw(line_text, 0, yoffset)
+      yoffset = yoffset + line_text:getHeight() 
+      
+   end
+end
+
+cafe_intro.line_number = 1
+
 
 
