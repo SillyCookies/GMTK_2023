@@ -65,7 +65,9 @@ return {
 	 if first_date_went_poorly then
 	    return
 	       {"The phone rings for what seems an eternity. Eventually ALEX picks up.",
-		"ALEX: “Hello? Sam?”"}
+		"ALEX: “Hello? Sam?”",
+		"SAM: \"Hi Alex.\"",
+		"ALEX: \"You called, I guess that means you liked me?\"",}
 	 else
 	    return {"The phone is picked up almost immediately.",
 	     "ALEX: “SAM, you called!” ALEX’s voice turns coy. “ I guess that means… you liked me?”"}
@@ -89,12 +91,13 @@ return {
 	 next="FOLLOWING"},
 
       romantic={
-	 "SAM: “Uh, hi, uhm.” SAM clears their throat. “I was wondering whether you’d like to go on another date?”",
+	 
 	 
 	 function()
 	    if first_date_went_poorly then
 	       return
-		  {"ALEX: “I don’t know, I’m not sure we had that much of a connection?”",
+		  {"SAM: “Uh, hi, uhm.” SAM clears their throat. “Yes I did, so I was wondering whether you’d like to go on another date?”",
+		  "ALEX: “I don’t know, I’m not sure we had that much of a connection?”",
 		   "SAM: “I- I know what you mean. I’m sorry. I was really nervous. My previous relationship was a wreck and- I don’t want to start all that again. Would you give me another chance? I actually really like you and I’ve been kicking myself all night for how I acted.”",
 		   "ALEX is quiet for a moment."}
 	    else
@@ -456,16 +459,19 @@ return {
       "ALEX: “Sam, one jasmin and two yuzu teas to go!”",
       "SAM: “Gotcha!”",
       
-      "The café is filled with neighbours coming to check out the new enterprise. ALEX and SAM are in a whirl preparing and serving all the drinks. The happy sounds of sharing a good conversation over a good drink fill the air, creating a cosy and welcoming ambiance.",
+      "The café is filled with neighbours coming to check out the new enterprise.", 
+	  "ALEX and SAM are in a whirl preparing and serving all the drinks.",
+	  "The happy sounds of sharing a good conversation over a good drink fill the air, creating a cosy and welcoming ambiance.",
       
-      "SAM catches ALEX’s eyes as they work and they share an elated grin. SAM wonders about the turn their life has taken since meeting ALEX. SAM hums a happy tune as he serves the teas."},
+      "SAM catches ALEX’s eyes as they work and they share an elated grin.", 
+	  "SAM wonders about the turn their life has taken since meeting ALEX and hums a happy tune as he serves the teas."},
    
    
    BUSINESS_MEETING={
       "ALEX and SAM get together to talk more seriously about opening a café together.",
 	  "They've picked successful local shop and sit at a table, observing the space around them.",
 	happy={
-	  "SAM: \"We have to consider acoustics. Echoin is uncomfortable, we're going to want some plants and cloth decorations to dampen the sounds.\"",
+	  "SAM: \"We have to consider acoustics. Echoing is uncomfortable, we're going to want some plants and cloth decorations to dampen the sounds.\"",
 	  "ALEX: \"And it's good to consider the machines if you have an open kitchen. Some of them are so noisy they'll interrupt conversation whenever they are used\"",
 	  "SAM: \"Speaking of the kitchen, I'm sure there are a bunch of certificates and permits to arrange with respect to health and safety.\"",
 	  "They get really into it and by the end  of the afternoon they feel confident that they could actually pull it off.",
