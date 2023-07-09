@@ -7,7 +7,8 @@ return {
       "ALEX sits down.",
       "ALEX: It’s great to finally meet you!",
 
-      romantic={"It’s love at first sight, SAM sips coffee and forgets how bad it is, ALEX drinks plenty of tea.",
+      romantic={"It’s love at first sight.", 
+	    "SAM sips coffee and forgets how bad it is, ALEX drinks plenty of tea.",
 		"Time passes them by, and the day suddenly approaches evening.",
 		
 		"ALEX: Look at the time, I can’t believe it!",
@@ -17,7 +18,8 @@ return {
 		"SAM: yeah, me too.",
 		"ALEX: I really have to go now, but call me, ok?",
 		
-		"They stand up and stammer their goodbyes at the door."},
+		"They stand up and stammer their goodbyes at the door.",
+	    next="Phonecall"},
       happy={
 	 "ALEX: Whenever I go to one of these cafes, I always hope they have more kinds of tea. But it’s usually just : black or green? And practically supermarket quality!",
 	 
@@ -33,10 +35,11 @@ return {
 	 
 	 "SAM: Me too. See you around.",
 	 
-	 "ALEX: Yeah see you, let’s hang out some time."},
+	 "ALEX: Yeah see you, let’s hang out some time.",
+	 next="Chancemeeting"},
 
       tense={
-	 {"SAM flatters ALEX with compliments, and asks all about ALEX’s interests.",
+	  "SAM flatters ALEX with compliments, and asks all about ALEX’s interests.",
 	  "Somehow the conversation repeatedly drifts to SAM’s “crazy, lying” ex.",
 	  
 	  "ALEX: Sam, I’m really sorry but I have to go now.",
@@ -48,7 +51,8 @@ return {
 	  
 	  "ALEX: No that’s alright, I’ll pay for my tea.",
 	  
-	  "SAM: Fine. See you later."}
+	  "SAM: Fine. See you later.",
+	  next="Phonecall"
       }
    },
 

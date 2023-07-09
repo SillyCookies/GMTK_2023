@@ -1,18 +1,27 @@
 scenes = require("scenes")
-
-function love.load()
 font = love.graphics.newFont(18)
-mybutton = {x = 200, y = 200, width = 80, height = 40, text = love.graphics.newText(font, "Begin")}
-scene = {draw = function()
-	love.graphics.print(introduction)
-	draw_button(mybutton)
-	end}
+function love.load()
+
+mybutton = {x=(WIN_WIDTH - BUTTON_WIDTH)/2, y=WIN_HEIGHT-50, width=BUTTON_WIDTH, height=BUTTON_HEIGHT, text = love.graphics.newText(font, "Begin")}
+current_scene = {
+    draw = function()
+	    love.graphics.print(introduction)
+	    draw_button(mybutton)
+	end,
+	mousepressed = function(self, x, y, button)
+	    if button == 1 then --Left click
+            if is_button_pressed(mybutton, x, y) then
+			    scene_switch(cafe_intro)
+		    end	
+        end
+	end
+	}
 end
 
 function love.keypressed()
-scene.line_number = scene.line_number + 1
-if scene.line_number == #scene then
-	scene_switch(new_scene)
+current_scene.line_number = current_scene.line_number + 1
+if current_scene.line_number == #current_scene.lines then 
+	scene_switch(current_scene:get_next_scene())
 end
 end
 
@@ -20,8 +29,7 @@ function love.update(dt)
 end
 
 function love.draw()
-scene.draw()
-
+current_scene:draw()
 end
 
 function draw_button(button)
@@ -34,7 +42,7 @@ love.graphics.draw(button.text, text_x, text_y)
 end
 
 function scene_switch(new_scene)
-scene = new_scene
+    current_scene = new_scene
 end
 
 
@@ -47,31 +55,67 @@ end
 		
 
 function love.mousepressed(x, y, button ,istouch)
-    if button == 1 then --Left click
-        if is_button_pressed(mybutton, x, y) then
-			scene_switch(cafe_intro)
-		end	
-    end
+    current_scene:mousepressed(x, y, button)
 end
+
+l
 
 introduction = {"This is a story of two people meeting, and how their relationship develops. You control the music driving their story."}
 
-cafe_intro = scenes.Cafe
 
-cafe_intro.draw = function()
+BUTTON_WIDTH = 80
+BUTTON_HEIGHT = 40
+WIN_WIDTH, WIN_HEIGHT = love.window.getMode()
+Scene = {
+    romantic_button = {x=20, y=WIN_HEIGHT-50, width=BUTTON_WIDTH, height=BUTTON_HEIGHT, text=love.graphics.newText(font, "Track 1")},
+	happy_button = {x=(WIN_WIDTH - BUTTON_WIDTH)/2, y=WIN_HEIGHT-50, width=BUTTON_WIDTH, height=BUTTON_HEIGHT, text=love.graphics.newText(font, "Track 2")},
+	tense_button = {x=WIN_WIDTH - 20 - BUTTON_WIDTH, y=WIN_HEIGHT-50, width=BUTTON_WIDTH, height=BUTTON_HEIGHT, text=love.graphics.newText(font, "Track 3")}
+}
+
+function Scene.new(lines)
+    local o = {}
+    o.lines = lines
+	setmetatable(o, {__index=Scene})
+	o.line_number = 1
+	return o
+end
+
+function Scene:mousepressed(x, y, button)
+    if is_button_pressed(self.romantic_button, x, y) then
+	    mood = "romantic"
+	elseif is_button_pressed(self.happy_button, x, y) then
+	    mood = "happy"
+    elseif is_button_pressed(self.tense_button, x, y) then
+	    mood = "tense"
+    end	
+end
+
+function Scene:get_next_scene()
+	if self.lines[mood] == nil then
+	    
+		return Scene.new(scenes[self.lines.next])
+	else 
+	    return Scene.new(self.lines[mood])
+	end
+end
+
+function Scene:draw()
+   draw_button(self.romantic_button)
+   draw_button(self.happy_button)
+   draw_button(self.tense_button)
    yoffset= 0
-   for i , line in ipairs(cafe_intro) do
-      if i > cafe_intro.line_number then	
-	 break
+   for i , line in ipairs(self.lines) do
+      if i > self.line_number then	
+	     break
       end			
       line_text = love.graphics.newText(font, line)
       love.graphics.draw(line_text, 0, yoffset)
-      yoffset = yoffset + line_text:getHeight() 
-      
+      yoffset = yoffset + line_text:getHeight()
    end
 end
 
-cafe_intro.line_number = 1
 
+
+cafe_intro = Scene.new(scenes.Cafe)
 
 
