@@ -1,30 +1,30 @@
 scenes = require("scenes")
 font = love.graphics.newFont(18)
 function love.load()
-music = HAPPY
-music:play()
-music:setLooping(true)	
-mybutton = {x=(WIN_WIDTH - BUTTON_WIDTH)/2, y=WIN_HEIGHT-50, width=BUTTON_WIDTH, height=BUTTON_HEIGHT, text = love.graphics.newText(font, "Begin")}
-current_scene = {
-    draw = function()
-	    love.graphics.print(introduction)
-	    draw_button(mybutton)
-	end,
-	mousepressed = function(self, x, y, button)
-	    if button == 1 then --Left click
+   music = HAPPY
+   mood = 'happy'
+   music:play()
+   music:setLooping(true)	
+   mybutton = {x=(WIN_WIDTH - BUTTON_WIDTH)/2, y=WIN_HEIGHT-50, width=BUTTON_WIDTH, height=BUTTON_HEIGHT, text = love.graphics.newText(font, "Begin")}
+   current_scene = {
+      draw = function()
+	 love.graphics.print(introduction)
+	 draw_button(mybutton)
+      end,
+      mousepressed = function(self, x, y, button)
+	 if button == 1 then --Left click
             if is_button_pressed(mybutton, x, y) then
-			    scene_switch(cafe_intro)
-		    end	
-        end
-	end
-	}
+	       scene_switch(cafe_intro)
+	    end	
+	 end
+      end
+   }
 end
 
-function love.keypressed()
-current_scene.line_number = current_scene.line_number + 1
-if current_scene.line_number >= #current_scene.lines then 
-	scene_switch(current_scene:get_next_scene())
-end
+function love.keypressed(key)
+   if current_scene.keypressed then
+      current_scene:keypressed()
+   end
 end
 
 function love.update(dt)
@@ -105,7 +105,7 @@ function Scene:mousepressed(x, y, button)
 end
 
 function Scene:get_next_scene()
-	local next_lines
+   local next_lines
    if self.lines[mood] == nil then
       next_lines = scenes[self.lines.next]
       if next_lines == nil then
@@ -170,7 +170,13 @@ function resolve_conditions(lines)
 	return output_table
 end
 
+function Scene:keypressed(key)
+   self.line_number = self.line_number + 1
+   if self.line_number >= #self.lines then 
+      scene_switch(self:get_next_scene())
+   end
+end
+
 cafe_intro = Scene.new(scenes.Cafe)
 cafe_intro.isfirstdate = true
-
 
