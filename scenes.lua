@@ -98,7 +98,9 @@ return {
 	       return
 		  {"SAM: “Uh, hi, uhm.” SAM clears their throat. “Yes I did, so I was wondering whether you’d like to go on another date?”",
 		  "ALEX: “I don’t know, I’m not sure we had that much of a connection?”",
-		   "SAM: “I- I know what you mean. I’m sorry. I was really nervous. My previous relationship was a wreck and- I don’t want to start all that again. Would you give me another chance? I actually really like you and I’ve been kicking myself all night for how I acted.”",
+		   "SAM: “I- I know what you mean. I’m sorry. I was really nervous.",
+		   "My previous relationship was a wreck and- I don’t want to start all that again.", 
+		   "Would you give me another chance? I actually really like you and I’ve been kicking myself all night for how I acted.”",
 		   "ALEX is quiet for a moment."}
 	    else
 	       return
