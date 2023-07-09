@@ -346,6 +346,7 @@ return {
 	 "SAM frowns and reluctantly puts the beer back.",
 	 
 	 "The hot sun beats down on the park. As they watch people go by, SAM  mocks the appearance of passerby.",
+	 
 	 "ALEX spots a puppy, being let out for a walk.",
 	 "ALEX strikes up a conversation with the owner, asking to pet the puppy.",
 	 "SAM stands up to join them.",
