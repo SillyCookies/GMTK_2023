@@ -20,7 +20,7 @@ end
 
 function love.keypressed()
 current_scene.line_number = current_scene.line_number + 1
-if current_scene.line_number == #current_scene.lines then 
+if current_scene.line_number >= #current_scene.lines then 
 	scene_switch(current_scene:get_next_scene())
 end
 end
@@ -73,11 +73,11 @@ Scene = {
 }
 
 function Scene.new(lines)
-    local o = {}
-    o.lines = lines
-	setmetatable(o, {__index=Scene})
-	o.line_number = 1
-	return o
+   local o = {}
+   o.lines = lines
+   setmetatable(o, {__index=Scene})
+   o.line_number = 1
+   return o
 end
 
 function Scene:mousepressed(x, y, button)
@@ -91,12 +91,15 @@ function Scene:mousepressed(x, y, button)
 end
 
 function Scene:get_next_scene()
-	if self.lines[mood] == nil then
-	    
-		return Scene.new(scenes[self.lines.next])
-	else 
-	    return Scene.new(self.lines[mood])
-	end
+   if self.lines[mood] == nil then
+      local next_lines = scenes[self.lines.next]
+      if next_lines == nil then
+	 error("undefined scene: "..self.lines.next)
+      end
+      return Scene.new(next_lines)
+   else 
+      return Scene.new(self.lines[mood])
+   end
 end
 
 function Scene:draw()
