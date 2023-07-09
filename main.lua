@@ -175,7 +175,7 @@ function resolve_conditions(lines)
 	return output_table
 end
 
-cafe_intro = Scene.new(scenes.Cafe)
+cafe_intro = Scene.new(scenes.CAFE)
 cafe_intro.isfirstdate = true
 
 end_screen = {draw = function()

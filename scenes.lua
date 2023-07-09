@@ -453,15 +453,27 @@ return {
    
    
    BUSINESS_MEETING={
-	happy={
       "ALEX and SAM get together to talk more seriously about opening a café together.",
 	  "They've picked successful local shop and sit at a table, observing the space around them.",
+	happy={
 	  "SAM: \"We have to consider acoustics. Echoin is uncomfortable, we're going to want some plants and cloth decorations to dampen the sounds.\"",
 	  "ALEX: \"And it's good to consider the machines if you have an open kitchen. Some of them are so noisy they'll interrupt conversation whenever they are used\"",
 	  "SAM: \"Speaking of the kitchen, I'm sure there are a bunch of certificates and permits to arrange with respect to health and safety.\"",
 	  "They get really into it and by the end  of the afternoon they feel confident that they could actually pull it off.",
-	  "ALEX: \"What would we call it?\""
-	  next = "BUSINESS"}
+	  "ALEX: \"What would we call it?\"",
+	  "They spend many more such afternoons planning away",
+	  next = "BUSINESS"},
+	tense={
+	  "As the conversation progresses they realise that they have very different ideas of how the café would be run",
+	  "ALEX: \"It sounds to me like you'd want to be the sole boss of the operation. I should have a say in how things are done.\"",
+	  "SAM: \"I have more business experience, it's only logical that I should be the one giving directions.\"",
+	  "The coversation devolves into an argument. ALEX angrily gets up and gathers her things to leave",
+	  "SAM: \"Don't you walk away, we have't finished this discussion!\"",
+	  "ALEX: \"I think we have. You think that you can just take my money and then shit all over me? I know when I'm being taken advantage of!\"",
+	  "SAM: \"You're the one trying to take advantage of me! I'm doing you a huge favour here and all you're trying to do is weasel out any advantage that you can.\"",
+	  "ALEX: \"That's enough. I'm through with you, Sam.\"",
+	  "Sam stares in disbelieve as ALEX marches out of the café.",
+	  next="CONFRONTATION"}
    },
    
    
