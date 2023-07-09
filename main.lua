@@ -45,7 +45,10 @@ love.graphics.draw(button.text, text_x, text_y)
 end
 
 function scene_switch(new_scene)
-    current_scene = new_scene
+   current_scene = new_scene
+   if current_scene.mood then
+      set_mood(current_scene.mood)
+   end
 end
 
 
@@ -83,26 +86,35 @@ function Scene.new(lines)
    o.lines = lines
    setmetatable(o, {__index=Scene})
    o.line_number = 1
+   o.mood = o.lines.mood
    return o
 end
 
+
+music_moods = {
+   romantic=ROMANTIC,
+   happy=HAPPY,
+   tense=TENSE}
+function set_mood(value)
+   mood = value
+   music:pause()
+   music = music_moods[value]
+   music:play()
+end
+
+
 function Scene:mousepressed(x, y, button)
-    if is_button_pressed(self.romantic_button, x, y) then
-	    mood = "romantic"
-		music:stop()
-		music = ROMANTIC
-		music:play()
-	elseif is_button_pressed(self.happy_button, x, y) then
-	    mood = "happy"
-		music:stop()
-		music = HAPPY
-		music:play()
-    elseif is_button_pressed(self.tense_button, x, y) then
-	    mood = "tense"
-		music:stop()
-		music = TENSE
-		music:play()
-    end	
+   if self.mood then
+      -- mood is locked
+      return
+   end
+   if is_button_pressed(self.romantic_button, x, y) then
+      set_mood("romantic")
+   elseif is_button_pressed(self.happy_button, x, y) then
+      set_mood('happy')
+   elseif is_button_pressed(self.tense_button, x, y) then
+      set_mood('tense')
+   end	
 end
 
 function Scene:get_next_scene()
@@ -119,7 +131,8 @@ function Scene:get_next_scene()
 	if self.isfirstdate and mood == "tense" then
 		first_date_went_poorly = true
 	end
-		next_lines = self.lines[mood]
+	next_lines = self.lines[mood]
+	next_lines.mood = mood
    end
    
    return Scene.new(resolve_conditions(next_lines))
@@ -136,9 +149,11 @@ function find_last(str, expr)
 end
 
 function Scene:draw()
-   draw_button(self.romantic_button)
-   draw_button(self.happy_button)
-   draw_button(self.tense_button)
+   if not self.mood then
+      draw_button(self.romantic_button)
+      draw_button(self.happy_button)
+      draw_button(self.tense_button)
+   end
    yoffset= 0
    for i , line in ipairs(self.lines) do
       if i > self.line_number then	
@@ -181,12 +196,11 @@ function Scene:keypressed(key)
       love.quit()
    end
    self.line_number = self.line_number + 1
-   if self.line_number >= #self.lines then 
+   if self.line_number > #self.lines then 
       scene_switch(self:get_next_scene())
    end
 end
 
-cafe_intro = Scene.new(scenes.Cafe)
 cafe_intro = Scene.new(scenes.CAFE)
 cafe_intro.isfirstdate = true
 

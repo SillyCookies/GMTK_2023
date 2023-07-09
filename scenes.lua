@@ -275,7 +275,7 @@ return {
 
 
    MURDER={
-      "Music locked to tense",
+      mood='tense',
       
       "SAM is in a kitchen, going through drawers.",
       
