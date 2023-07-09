@@ -1,7 +1,9 @@
 scenes = require("scenes")
 font = love.graphics.newFont(18)
 function love.load()
-
+music = HAPPY
+music:play()
+music:setLooping(true)	
 mybutton = {x=(WIN_WIDTH - BUTTON_WIDTH)/2, y=WIN_HEIGHT-50, width=BUTTON_WIDTH, height=BUTTON_HEIGHT, text = love.graphics.newText(font, "Begin")}
 current_scene = {
     draw = function()
@@ -58,6 +60,9 @@ function love.mousepressed(x, y, button ,istouch)
     current_scene:mousepressed(x, y, button)
 end
 
+HAPPY = love.audio.newSource("music/Happy.wav", "stream")
+ROMANTIC = love.audio.newSource("music/Romantic.wav", "stream")
+TENSE = love.audio.newSource("music/Sinister.wav", "stream")
 
 
 introduction = {"This is a story of two people meeting, and how their relationship develops. You control the music driving their story."}
@@ -83,10 +88,19 @@ end
 function Scene:mousepressed(x, y, button)
     if is_button_pressed(self.romantic_button, x, y) then
 	    mood = "romantic"
+		music:stop()
+		music = ROMANTIC
+		music:play()
 	elseif is_button_pressed(self.happy_button, x, y) then
 	    mood = "happy"
+		music:stop()
+		music = HAPPY
+		music:play()
     elseif is_button_pressed(self.tense_button, x, y) then
 	    mood = "tense"
+		music:stop()
+		music = TENSE
+		music:play()
     end	
 end
 
