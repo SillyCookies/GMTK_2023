@@ -1,5 +1,6 @@
 scenes = require("scenes")
 font = love.graphics.newFont(18)
+end_font = love.graphics.newFont(30)
 function love.load()
 music = HAPPY
 music:play()
@@ -109,7 +110,10 @@ function Scene:get_next_scene()
    if self.lines[mood] == nil then
       next_lines = scenes[self.lines.next]
       if next_lines == nil then
-	 error("undefined scene: "..self.lines.next)
+		if self.lines.next == nil then
+			return end_screen
+		end
+	  error("undefined scene: "..self.lines.next)
       end
    else 
 	if self.isfirstdate and mood == "tense" then
@@ -117,6 +121,7 @@ function Scene:get_next_scene()
 	end
 		next_lines = self.lines[mood]
    end
+   
    return Scene.new(resolve_conditions(next_lines))
 end
 
@@ -172,5 +177,13 @@ end
 
 cafe_intro = Scene.new(scenes.Cafe)
 cafe_intro.isfirstdate = true
+
+end_screen = {draw = function()
+				line_text = love.graphics.newText(end_font, line)
+				love.graphics.draw(line_text, 0, yoffset)
+				yoffset = yoffset + line_text:getHeight()
+			end,
+			"THE END", 
+			"Thank you for playing"}
 
 
