@@ -2,30 +2,30 @@ scenes = require("scenes")
 font = love.graphics.newFont(18)
 end_font = love.graphics.newFont(30)
 function love.load()
-music = HAPPY
-music:play()
-music:setLooping(true)	
-mybutton = {x=(WIN_WIDTH - BUTTON_WIDTH)/2, y=WIN_HEIGHT-50, width=BUTTON_WIDTH, height=BUTTON_HEIGHT, text = love.graphics.newText(font, "Begin")}
-current_scene = {
-    draw = function()
-	    love.graphics.print(introduction)
-	    draw_button(mybutton)
-	end,
-	mousepressed = function(self, x, y, button)
-	    if button == 1 then --Left click
+   music = HAPPY
+   mood = 'happy'
+   music:play()
+   music:setLooping(true)	
+   mybutton = {x=(WIN_WIDTH - BUTTON_WIDTH)/2, y=WIN_HEIGHT-50, width=BUTTON_WIDTH, height=BUTTON_HEIGHT, text = love.graphics.newText(font, "Begin")}
+   current_scene = {
+      draw = function()
+	 love.graphics.print(introduction)
+	 draw_button(mybutton)
+      end,
+      mousepressed = function(self, x, y, button)
+	 if button == 1 then --Left click
             if is_button_pressed(mybutton, x, y) then
-			    scene_switch(cafe_intro)
-		    end	
-        end
-	end
-	}
+	       scene_switch(cafe_intro)
+	    end	
+	 end
+      end
+   }
 end
 
-function love.keypressed()
-current_scene.line_number = current_scene.line_number + 1
-if current_scene.line_number >= #current_scene.lines then 
-	scene_switch(current_scene:get_next_scene())
-end
+function love.keypressed(key)
+   if current_scene.keypressed then
+      current_scene:keypressed(key)
+   end
 end
 
 function love.update(dt)
@@ -106,7 +106,7 @@ function Scene:mousepressed(x, y, button)
 end
 
 function Scene:get_next_scene()
-	local next_lines
+   local next_lines
    if self.lines[mood] == nil then
       next_lines = scenes[self.lines.next]
       if next_lines == nil then
@@ -175,15 +175,36 @@ function resolve_conditions(lines)
 	return output_table
 end
 
+
+function Scene:keypressed(key)
+   if key == 'escape' then
+      love.quit()
+   end
+   self.line_number = self.line_number + 1
+   if self.line_number >= #self.lines then 
+      scene_switch(self:get_next_scene())
+   end
+end
+
+cafe_intro = Scene.new(scenes.Cafe)
 cafe_intro = Scene.new(scenes.CAFE)
 cafe_intro.isfirstdate = true
 
-end_screen = {draw = function()
-				line_text = love.graphics.newText(end_font, line)
-				love.graphics.draw(line_text, 0, yoffset)
-				yoffset = yoffset + line_text:getHeight()
-			end,
-			"THE END", 
-			"Thank you for playing"}
 
+end_screen = {
+   draw = function()
+      local line_text = love.graphics.newText(end_font, "THE END\n\n\nThank you for playing\n\nPress escape to exit.\nPress R to restart")
+      love.graphics.draw(
+	 line_text,
+	 WIN_WIDTH/2 - line_text:getWidth()/2,
+	 WIN_HEIGHT/2 - line_text:getHeight()/2)
+   end,
+   keypressed = function(self, key)
+      if key == 'escape' then
+	 love.event.quit()
+      elseif key == 'r' then
+	 love.event.quit("restart")
+      end
+   end
+}
 

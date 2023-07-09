@@ -294,7 +294,7 @@ return {
       "SAM sees the phone and reaches for it, ALEX pulls away through the doorframe.",
       
       "SAM grabs a kitchen knife and lunges after ALEX, screaming.",
-       
+
       "The call goes through, an operator hears the sound of a struggle."
    },
 
@@ -382,7 +382,16 @@ return {
 	 next="BUSINESS_MEETING"},
       
       romantic={
-      "insert dialogue",
+	 "The sun shines on the lively park, and the cold drinks are refreshing.",
+	 "SAM and ALEX talk in the shade of a tree",
+	 "The conversation breaks and they listen to the wind whispering through the leaves",
+	 "Until SAM notices ALEX watching them closely",
+	 "SAM: What?",
+	 "ALEX looks down away and then meets SAM's eyes again",
+	 "They move closer.",
+	 "They kiss.",
+	 "They part, self consciously.",
+	 "ALEX didn't go see their parents that day.",
       next="INTIMATE SCENE",
       }
    },
