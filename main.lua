@@ -11,7 +11,9 @@ end
 
 function love.keypressed()
 scene.line_number = scene.line_number + 1
-
+if scene.line_number == #scene then
+	scene_switch(new_scene)
+end
 end
 
 function love.update(dt)
