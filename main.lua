@@ -86,7 +86,7 @@ function Scene.new(lines)
    o.lines = lines
    setmetatable(o, {__index=Scene})
    o.line_number = 1
-   o.mood = lines.mood
+   o.mood = o.lines.mood
    return o
 end
 
@@ -94,10 +94,10 @@ end
 music_moods = {
    romantic=ROMANTIC,
    happy=HAPPY,
-   TENSE=TENSE}
+   tense=TENSE}
 function set_mood(value)
    mood = value
-   music:stop()
+   music:pause()
    music = music_moods[value]
    music:play()
 end
@@ -131,7 +131,8 @@ function Scene:get_next_scene()
 	if self.isfirstdate and mood == "tense" then
 		first_date_went_poorly = true
 	end
-		next_lines = self.lines[mood]
+	next_lines = self.lines[mood]
+	next_lines.mood = mood
    end
    
    return Scene.new(resolve_conditions(next_lines))
@@ -148,9 +149,11 @@ function find_last(str, expr)
 end
 
 function Scene:draw()
-   draw_button(self.romantic_button)
-   draw_button(self.happy_button)
-   draw_button(self.tense_button)
+   if not self.mood then
+      draw_button(self.romantic_button)
+      draw_button(self.happy_button)
+      draw_button(self.tense_button)
+   end
    yoffset= 0
    for i , line in ipairs(self.lines) do
       if i > self.line_number then	
@@ -193,12 +196,11 @@ function Scene:keypressed(key)
       love.quit()
    end
    self.line_number = self.line_number + 1
-   if self.line_number >= #self.lines then 
+   if self.line_number > #self.lines then 
       scene_switch(self:get_next_scene())
    end
 end
 
-cafe_intro = Scene.new(scenes.Cafe)
 cafe_intro = Scene.new(scenes.CAFE)
 cafe_intro.isfirstdate = true
 
