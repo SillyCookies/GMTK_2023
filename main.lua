@@ -24,7 +24,7 @@ end
 
 function love.keypressed(key)
    if current_scene.keypressed then
-      current_scene:keypressed()
+      current_scene:keypressed(key)
    end
 end
 
@@ -176,6 +176,9 @@ function resolve_conditions(lines)
 end
 
 function Scene:keypressed(key)
+   if key == 'escape' then
+      love.quit()
+   end
    self.line_number = self.line_number + 1
    if self.line_number >= #self.lines then 
       scene_switch(self:get_next_scene())
@@ -186,11 +189,20 @@ cafe_intro = Scene.new(scenes.Cafe)
 cafe_intro.isfirstdate = true
 
 
-end_screen = {draw = function()
-				line_text = love.graphics.newText(end_font, line)
-				love.graphics.draw(line_text, 0, yoffset)
-				yoffset = yoffset + line_text:getHeight()
-			end,
-			"THE END", 
-			"Thank you for playing"}
+end_screen = {
+   draw = function()
+      local line_text = love.graphics.newText(end_font, "THE END\n\n\nThank you for playing\n\nPress escape to exit.\nPress R to restart")
+      love.graphics.draw(
+	 line_text,
+	 WIN_WIDTH/2 - line_text:getWidth()/2,
+	 WIN_HEIGHT/2 - line_text:getHeight()/2)
+   end,
+   keypressed = function(self, key)
+      if key == 'escape' then
+	 love.event.quit()
+      elseif key == 'r' then
+	 love.event.quit("restart")
+      end
+   end
+}
 
