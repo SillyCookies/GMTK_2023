@@ -45,7 +45,10 @@ love.graphics.draw(button.text, text_x, text_y)
 end
 
 function scene_switch(new_scene)
-    current_scene = new_scene
+   current_scene = new_scene
+   if current_scene.mood then
+      set_mood(current_scene.mood)
+   end
 end
 
 
@@ -83,26 +86,35 @@ function Scene.new(lines)
    o.lines = lines
    setmetatable(o, {__index=Scene})
    o.line_number = 1
+   o.mood = lines.mood
    return o
 end
 
+
+music_moods = {
+   romantic=ROMANTIC,
+   happy=HAPPY,
+   TENSE=TENSE}
+function set_mood(value)
+   mood = value
+   music:stop()
+   music = music_moods[value]
+   music:play()
+end
+
+
 function Scene:mousepressed(x, y, button)
-    if is_button_pressed(self.romantic_button, x, y) then
-	    mood = "romantic"
-		music:stop()
-		music = ROMANTIC
-		music:play()
-	elseif is_button_pressed(self.happy_button, x, y) then
-	    mood = "happy"
-		music:stop()
-		music = HAPPY
-		music:play()
-    elseif is_button_pressed(self.tense_button, x, y) then
-	    mood = "tense"
-		music:stop()
-		music = TENSE
-		music:play()
-    end	
+   if self.mood then
+      -- mood is locked
+      return
+   end
+   if is_button_pressed(self.romantic_button, x, y) then
+      set_mood("romantic")
+   elseif is_button_pressed(self.happy_button, x, y) then
+      set_mood('happy')
+   elseif is_button_pressed(self.tense_button, x, y) then
+      set_mood('tense')
+   end	
 end
 
 function Scene:get_next_scene()
