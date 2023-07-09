@@ -175,6 +175,7 @@ function resolve_conditions(lines)
 	return output_table
 end
 
+
 function Scene:keypressed(key)
    if key == 'escape' then
       love.quit()
@@ -186,6 +187,7 @@ function Scene:keypressed(key)
 end
 
 cafe_intro = Scene.new(scenes.Cafe)
+cafe_intro = Scene.new(scenes.CAFE)
 cafe_intro.isfirstdate = true
 
 
