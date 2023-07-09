@@ -148,6 +148,8 @@ function find_last(str, expr)
    return ind
 end
 
+
+MAX_LINE_LENGTH=90
 function Scene:draw()
    if not self.mood then
       draw_button(self.romantic_button)
@@ -159,10 +161,10 @@ function Scene:draw()
       if i > self.line_number then	
 	     break
       end		
-	if string.len(line) > 80 then
+	if string.len(line) > MAX_LINE_LENGTH then
 	    local split_position = find_last(
-		    string.sub(line, 1, 80), " ")
-		line = string.sub(line, 1, split_position) .."\n" .. string.sub(line, split_position + 1)
+		    string.sub(line, 1, MAX_LINE_LENGTH), " ")
+		line = string.sub(line, 1, split_position) .."\n    " .. string.sub(line, split_position + 1)
 	end	  
       line_text = love.graphics.newText(font, line)
       love.graphics.draw(line_text, 0, yoffset)
@@ -193,12 +195,37 @@ end
 
 function Scene:keypressed(key)
    if key == 'escape' then
-      love.quit()
+      love.event.quit()
    end
+
+   if key == "1" then
+      if self.mood then
+	 -- mood is locked
+	 return
+      end
+      set_mood("romantic")
+      return
+   elseif key == "2" then
+      if self.mood then
+	 -- mood is locked
+	 return
+      end
+      set_mood('happy')
+      return
+   elseif key == "3" then
+      if self.mood then
+	 -- mood is locked
+	 return
+      end
+      set_mood('tense')
+      return
+   end
+
    self.line_number = self.line_number + 1
    if self.line_number > #self.lines then 
       scene_switch(self:get_next_scene())
    end
+
 end
 
 cafe_intro = Scene.new(scenes.CAFE)
