@@ -248,7 +248,7 @@ return {
 	 "SAM and ALEX take a detour through the park, talking and sharing a kiss before parting ways.",
 	 
 	 "ALEX calls SAM the next day, and asks to go on another date…",
-	 next="INTIMATE SCENE",
+	 next="PROPOSAL",
       },
    },
 
@@ -395,7 +395,7 @@ return {
 	 "They kiss.",
 	 "They part, self consciously.",
 	 "ALEX didn't go see their parents that day.",
-      next="INTIMATE SCENE",
+      next="PROPOSAL",
       }
    },
    
@@ -410,7 +410,7 @@ return {
 	 "SAM and ALEX lie on their sides facing each other. They can’t seem to stop smiling. They lie there for a while, just basking in the bliss of their shared privacy.",
 	 "ALEX reaches out to brush a lock of SAM’s hair behind their ear.",
 	 "ALEX: “I don’t think I’ve ever felt this relaxed and happy with anyone before.”",
-	 "SAM gently catches ALEX’s hand in their own and holds it: ",
+	 "SAM gently catches ALEX’s hand in their own and holds it. ",
 	 "SAM: “I want this moment to last forever.”",
 	 "ALEX seems to work up the courage to say something. SAM stays quiet and smiles encouragingly.",
 	 "ALEX: “I’m actually going to have dinner with my parents this Thursday. Would you like to join me?”",
@@ -492,9 +492,6 @@ return {
    },
    
    
-   INTIMATE_SCENE={
-      "*insert scene here*",
-      next="PROPOSAL"
-   }
+ 
    
 }
