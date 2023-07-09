@@ -1,5 +1,5 @@
 return {
-   Cafe= {
+   CAFE= {
       "SAM sits in a cafe, at the window, watching people walk by.",
       "SAM sips the coffee as ALEX walks in. The coffee is terrible",
       "ALEX: Sam?", 
@@ -388,7 +388,9 @@ return {
    },
    
    
-   Proposal={
+   
+   
+   PROPOSAL={
       "The curtains flutter gently in the open window. Birdsong and the faint sounds of the city drift on the breeze, into ALEX’s bedroom.",
       
       
@@ -451,7 +453,15 @@ return {
    
    
    BUSINESS_MEETING={
-      "*insert scene here*",
+	happy={
+      "ALEX and SAM get together to talk more seriously about opening a café together.",
+	  "They've picked successful local shop and sit at a table, observing the space around them.",
+	  "SAM: \"We have to consider acoustics. Echoin is uncomfortable, we're going to want some plants and cloth decorations to dampen the sounds.\"",
+	  "ALEX: \"And it's good to consider the machines if you have an open kitchen. Some of them are so noisy they'll interrupt conversation whenever they are used\"",
+	  "SAM: \"Speaking of the kitchen, I'm sure there are a bunch of certificates and permits to arrange with respect to health and safety.\"",
+	  "They get really into it and by the end  of the afternoon they feel confident that they could actually pull it off.",
+	  "ALEX: \"What would we call it?\""
+	  next = "BUSINESS"}
    },
    
    
