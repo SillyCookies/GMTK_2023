@@ -58,7 +58,7 @@ function love.mousepressed(x, y, button ,istouch)
     current_scene:mousepressed(x, y, button)
 end
 
-l
+
 
 introduction = {"This is a story of two people meeting, and how their relationship develops. You control the music driving their story."}
 
