@@ -105,15 +105,29 @@ function Scene:mousepressed(x, y, button)
 end
 
 function Scene:get_next_scene()
+	local next_lines
    if self.lines[mood] == nil then
-      local next_lines = scenes[self.lines.next]
+      next_lines = scenes[self.lines.next]
       if next_lines == nil then
 	 error("undefined scene: "..self.lines.next)
       end
-      return Scene.new(next_lines)
    else 
-      return Scene.new(self.lines[mood])
+	if self.isfirstdate and mood == "tense" then
+		first_date_went_poorly = true
+	end
+		next_lines = self.lines[mood]
    end
+   return Scene.new(resolve_conditions(next_lines))
+end
+
+function find_last(str, expr)
+   local ind = 1
+   local found = true
+   while ind < string.len(str) and found do
+	   found = string.find(str, expr, ind+1)
+	   if found then ind = found end
+   end
+   return ind
 end
 
 function Scene:draw()
@@ -124,15 +138,39 @@ function Scene:draw()
    for i , line in ipairs(self.lines) do
       if i > self.line_number then	
 	     break
-      end			
+      end		
+	if string.len(line) > 80 then
+	    local split_position = find_last(
+		    string.sub(line, 1, 80), " ")
+		line = string.sub(line, 1, split_position) .."\n" .. string.sub(line, split_position + 1)
+	end	  
       line_text = love.graphics.newText(font, line)
       love.graphics.draw(line_text, 0, yoffset)
       yoffset = yoffset + line_text:getHeight()
+		
    end
 end
 
-
+function resolve_conditions(lines)
+	local output_table = {}
+	for i, line in ipairs(lines) do
+		if type(line) == "string" then 
+			table.insert(output_table, line)
+		else
+			for j, function_line in ipairs(line()) do 
+				table.insert(output_table, function_line)
+			end
+		end
+	end
+	for key, value in pairs(lines) do
+		if type(key) == "string" then 
+			output_table[key] = value
+		end	
+	end
+	return output_table
+end
 
 cafe_intro = Scene.new(scenes.Cafe)
+cafe_intro.isfirstdate = true
 
 
