@@ -391,7 +391,7 @@ return {
 	 "They move closer.",
 	 "They kiss.",
 	 "They part, self consciously.",
-	 "ALEX didn't go see their parents that day."
+	 "ALEX didn't go see their parents that day.",
       next="INTIMATE SCENE",
       }
    },
