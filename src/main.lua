@@ -149,7 +149,7 @@ function find_last(str, expr)
 end
 
 
-MAX_LINE_LENGTH=85
+MAX_LINE_LENGTH=84
 function Scene:draw()
    if not self.mood then
       draw_button(self.romantic_button)
