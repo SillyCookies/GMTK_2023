@@ -422,7 +422,21 @@ return {
 	 "SAM gives ALEX the most brilliant smile and draws them into a tight hug.",
 	 "SAM: “Of course I’ll come. I’d love to meet them.”",
 	 next="PARENTS"},
-      
+
+      happy={
+	 "SAM and ALEX lie on their sides facing each other. They can’t seem to stop smiling. They lie there for a while, just basking in the bliss of their shared privacy.",
+	 "ALEX reaches out to brush a lock of SAM’s hair behind their ear.",
+	 "ALEX: “I don’t think I’ve ever felt this relaxed and happy with anyone before.”",
+	 "SAM gently catches ALEX’s hand in their own and holds it. ",
+	 "SAM: “I want this moment to last forever.”",
+	 "ALEX seems to work up the courage to say something. SAM stays quiet and smiles encouragingly.",
+	 "ALEX: “I’m actually going to have dinner with my parents this Thursday. Would you like to join me?”",
+	 "SAM: “You’d like me to meet your parents?”",
+	 "ALEX blushes.",
+	 "ALEX: “They’re important to me. And you are too. You should meet.”",
+	 "SAM gives ALEX the most brilliant smile and draws them into a tight hug.",
+	 "SAM: “Of course I’ll come. I’d love to meet them.”",
+	 next="PARENTS"},
 
       tense={
 	 "ALEX: “Sam, I don’t know…”",
@@ -442,6 +456,7 @@ return {
    
    
    PARENTS={
+      mood="romantic",
       "SAM and ALEX stand on the porch, hands clasped. ",
       "ALEX: “There’s no need to be nervous”",
       "SAM (nervously): “I know”",
