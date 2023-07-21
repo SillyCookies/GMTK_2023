@@ -456,6 +456,7 @@ return {
    
    
    PARENTS={
+      mood="romantic",
       "SAM and ALEX stand on the porch, hands clasped. ",
       "ALEX: “There’s no need to be nervous”",
       "SAM (nervously): “I know”",
