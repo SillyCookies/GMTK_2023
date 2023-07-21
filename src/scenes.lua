@@ -437,7 +437,6 @@ return {
 	 "SAM gives ALEX the most brilliant smile and draws them into a tight hug.",
 	 "SAM: “Of course I’ll come. I’d love to meet them.”",
 	 next="PARENTS"},
-      }
 
       tense={
 	 "ALEX: “Sam, I don’t know…”",
